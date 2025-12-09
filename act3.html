@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starbucks Order Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #00704A 0%, #005a3c 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #00704A;
+        }
+
+        .logo-circle {
+            width: 80px;
+            height: 80px;
+            background: #00704A;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-star {
+            color: white;
+            font-size: 40px;
+        }
+
+        .brand-name {
+            font-size: 36px;
+            font-weight: bold;
+            color: #00704A;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00704A;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d4d4d4;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #00704A;
+            background: white;
+        }
+
+        .drink-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .drink-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .drink-card:hover {
+            border-color: #00704A;
+            background: white;
+        }
+
+        .drink-card input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .drink-card label {
+            cursor: pointer;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .customization {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .size-options,
+        .milk-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .option-btn {
+            padding: 10px 20px;
+            border: 2px solid #d4d4d4;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .option-btn:hover {
+            border-color: #00704A;
+            background: #00704A;
+            color: white;
+        }
+
+        input[type="radio"]:checked + .option-btn {
+            border-color: #00704A;
+            background: #00704A;
+            color: white;
+        }
+
+        .add-on {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .add-on input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .add-on label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00704A 0%, #005a3c 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 112, 74, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .required {
+            color: #d62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-circle">
+                <div class="logo-star">★</div>
+            </div>
+            <div class="brand-name">STARBUCKS</div>
+            <p class="tagline">Inspiring and nurturing the human spirit</p>
+        </div>
+
+        <form id="orderForm">
+            <div class="form-section">
+                <div class="section-title">Customer Information</div>
+                <div class="form-group">
+                    <label for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="First and Last Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">Select Your Beverage <span class="required">*</span></div>
+                <div class="drink-grid">
+                    <div class="drink-card">
+                        <input type="radio" id="latte" name="drink" value="Caffè Latte" required>
+                        <label for="latte">Caffè Latte</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="cappuccino" name="drink" value="Cappuccino">
+                        <label for="cappuccino">Cappuccino</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="americano" name="drink" value="Caffè Americano">
+                        <label for="americano">Caffè Americano</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="mocha" name="drink" value="Caffè Mocha">
+                        <label for="mocha">Caffè Mocha</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="caramel" name="drink" value="Caramel Macchiato">
+                        <label for="caramel">Caramel Macchiato</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="frappuccino" name="drink" value="Frappuccino">
+                        <label for="frappuccino">Frappuccino</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="tea" name="drink" value="Iced Tea">
+                        <label for="tea">Iced Tea</label>
+                    </div>
+                    <div class="drink-card">
+                        <input type="radio" id="refresher" name="drink" value="Refreshers">
+                        <label for="refresher">Refreshers</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section customization">
+                <div class="form-group">
+                    <label>Size <span class="required">*</span></label>
+                    <div class="size-options">
+                        <input type="radio" id="tall" name="size" value="Tall" required hidden>
+                        <label for="tall" class="option-btn">Tall (12oz)</label>
+                        
+                        <input type="radio" id="grande" name="size" value="Grande" hidden>
+                        <label for="grande" class="option-btn">Grande (16oz)</label>
+                        
+                        <input type="radio" id="venti" name="size" value="Venti" hidden>
+                        <label for="venti" class="option-btn">Venti (20oz)</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Milk Preference</label>
+                    <div class="milk-options">
+                        <input type="radio" id="whole" name="milk" value="Whole Milk" hidden>
+                        <label for="whole" class="option-btn">Whole</label>
+                        
+                        <input type="radio" id="nonfat" name="milk" value="Nonfat" hidden>
+                        <label for="nonfat" class="option-btn">Nonfat</label>
+                        
+                        <input type="radio" id="almond" name="milk" value="Almond" hidden>
+                        <label for="almond" class="option-btn">Almond</label>
+                        
+                        <input type="radio" id="oat" name="milk" value="Oat" hidden>
+                        <label for="oat" class="option-btn">Oat</label>
+                        
+                        <input type="radio" id="soy" name="milk" value="Soy" hidden>
+                        <label for="soy" class="option-btn">Soy</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Add-Ons</label>
+                    <div class="add-on">
+                        <input type="checkbox" id="extrashot" name="addons" value="Extra Shot">
+                        <label for="extrashot">Extra Shot of Espresso</label>
+                    </div>
+                    <div class="add-on">
+                        <input type="checkbox" id="whip" name="addons" value="Whipped Cream">
+                        <label for="whip">Whipped Cream</label>
+                    </div>
+                    <div class="add-on">
+                        <input type="checkbox" id="caramelsauce" name="addons" value="Caramel Drizzle">
+                        <label for="caramelsauce">Caramel Drizzle</label>
+                    </div>
+                    <div class="add-on">
+                        <input type="checkbox" id="vanilla" name="addons" value="Vanilla Syrup">
+                        <label for="vanilla">Vanilla Syrup</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="pickup">Pickup Time</label>
+                    <select id="pickup" name="pickup">
+                        <option value="">Select pickup time</option>
+                        <option value="ASAP">ASAP (15-20 min)</option>
+                        <option value="30 minutes">30 minutes</option>
+                        <option value="1 hour">1 hour</option>
+                        <option value="2 hours">2 hours</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Special Instructions</label>
+                    <textarea id="notes" name="notes" placeholder="Extra hot? Light ice? Let us know your preferences..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Place Order</button>
+        </form>
+    </div>
+
+    <script>
+        // Style radio buttons like buttons
+        document.querySelectorAll('input[type="radio"][hidden]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const labels = this.parentElement.querySelectorAll('.option-btn');
+                labels.forEach(label => {
+                    label.style.borderColor = '#d4d4d4';
+                    label.style.background = 'white';
+                    label.style.color = '#333';
+                });
+                const selectedLabel = this.nextElementSibling;
+                selectedLabel.style.borderColor = '#00704A';
+                selectedLabel.style.background = '#00704A';
+                selectedLabel.style.color = 'white';
+            });
+        });
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const drink = document.querySelector('input[name="drink"]:checked');
+            const size = document.querySelector('input[name="size"]:checked');
+            
+            if (!drink) {
+                alert('Please select a beverage!');
+                return;
+            }
+            
+            if (!size) {
+                alert('Please select a size!');
+                return;
+            }
+
+            const addons = [];
+            document.querySelectorAll('input[name="addons"]:checked').forEach(addon => {
+                addons.push(addon.value);
+            });
+
+            const milk = document.querySelector('input[name="milk"]:checked');
+            let orderSummary = `Thank you, ${name}!\n\nYour order:\n${size.value} ${drink.value}`;
+            
+            if (milk) {
+                orderSummary += `\nMilk: ${milk.value}`;
+            }
+            
+            if (addons.length > 0) {
+                orderSummary += `\nAdd-ons: ${addons.join(', ')}`;
+            }
+            
+            orderSummary += '\n\nYour order will be ready soon!';
+            
+            alert(orderSummary);
+        });
+    </script>
+</body>
+</html>

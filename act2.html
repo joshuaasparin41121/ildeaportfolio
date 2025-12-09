@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garlic Butter Shrimp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #8B7355 0%, #D4A574 50%, #8B7355 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 223, 186, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(205, 164, 118, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(139, 115, 85, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(255, 250, 245, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6B4423 0%, #8B6F47 100%);
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #D4A574;
+        }
+
+        .hero::after {
+            content: '🍤';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.15;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%) rotate(-15deg);
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #FFF8DC;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .subtitle {
+            color: #FFE4B5;
+            font-size: 1.2em;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 45px 40px;
+        }
+
+        .info-bar {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #D2B48C 0%, #C8A882 100%);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-item .icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+        }
+
+        .info-item .label {
+            font-size: 0.85em;
+            color: #5D4E37;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-item .value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #3E2723;
+        }
+
+        h2 {
+            color: #6B4423;
+            font-size: 1.8em;
+            margin: 35px 0 20px 0;
+            padding-left: 18px;
+            border-left: 5px solid #D4A574;
+        }
+
+        .ingredients {
+            background: linear-gradient(135deg, #F5DEB3 0%, #EDD5A6 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ingredients ul {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .ingredients li {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #8B6F47;
+        }
+
+        .ingredients li:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .ingredients li::before {
+            content: '🧄';
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #E6D5C3 0%, #D9C7B8 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #D4A574;
+        }
+
+        .step:hover {
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #8B6F47, #6B4423);
+            color: #FFF8DC;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 38px;
+            font-weight: bold;
+            margin-right: 14px;
+            font-size: 1.1em;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tips {
+            background: linear-gradient(135deg, #C19A6B 0%, #B8936F 100%);
+            padding: 28px;
+            border-radius: 15px;
+            margin-top: 30px;
+            color: #FFF8DC;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tips h3 {
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .tips p {
+            line-height: 1.8;
+            font-size: 1.05em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .serving-suggestion {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            border: 2px dashed #8B6F47;
+        }
+
+        .serving-suggestion h3 {
+            color: #6B4423;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+
+        .serving-suggestion p {
+            color: #5D4E37;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .content {
+                padding: 30px 25px;
+            }
+            
+            .info-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .hero::after {
+                font-size: 80px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Garlic Butter Shrimp</h1>
+            <p class="subtitle">Simple comfort in every bite</p>
+        </div>
+
+        <div class="content">
+            <div class="info-bar">
+                <div class="info-item">
+                    <div class="icon">⏱️</div>
+                    <div class="label">Prep Time</div>
+                    <div class="value">10 min</div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">🔥</div>
+                    <div class="label">Cook Time</div>
+                    <div class="value">8 min</div>
+                </div>
+                <div class="info-item">
+                    <div class="icon">👥</div>
+                    <div class="label">Serves</div>
+                    <div class="value">4</div>
+                </div>
+            </div>
+
+            <h2>Ingredients</h2>
+            <div class="ingredients">
+                <ul>
+                    <li>1½ lbs large shrimp, peeled and deveined</li>
+                    <li>6 cloves garlic, minced</li>
+                    <li>4 tablespoons butter</li>
+                    <li>2 tablespoons olive oil</li>
+                    <li>¼ cup dry white wine (or chicken broth)</li>
+                    <li>Juice of 1 lemon</li>
+                    <li>¼ teaspoon red pepper flakes</li>
+                    <li>Salt and black pepper to taste</li>
+                    <li>Fresh parsley, chopped</li>
+                    <li>Lemon wedges for serving</li>
+                </ul>
+            </div>
+
+            <h2>Instructions</h2>
+            <div class="instructions">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Prep the shrimp:</strong> Pat shrimp dry with paper towels and season with salt and pepper. Dry shrimp will sear better and develop a nice golden color.
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Heat the pan:</strong> In a large skillet, heat olive oil over medium-high heat until shimmering but not smoking. The oil should be hot enough to sizzle when you add the shrimp.
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Sear the shrimp:</strong> Add shrimp in a single layer (work in batches if needed). Cook for 2 minutes per side until pink and just opaque. Don't overcook! Remove shrimp and set aside.
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Make the garlic butter:</strong> Reduce heat to medium-low. Add butter to the same pan. Once melted, add minced garlic and red pepper flakes. Sauté for 30-45 seconds until fragrant but not browned.
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Create the sauce:</strong> Pour in wine (or broth) and lemon juice. Let it simmer for 2 minutes, scraping up any browned bits from the bottom of the pan. These add incredible flavor!
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Finish and serve:</strong> Return shrimp to the pan and toss to coat in the garlic butter sauce. Cook for 1 minute just to warm through. Garnish with fresh parsley and serve immediately with lemon wedges.
+                </div>
+            </div>
+
+            <div class="tips">
+                <h3>🌿 Cozy Kitchen Tips</h3>
+                <p><strong>Don't overcook:</strong> Shrimp cook incredibly fast—they're done when they turn pink and form a "C" shape. Overcooked shrimp become rubbery. <strong>Fresh garlic matters:</strong> Freshly minced garlic gives the best flavor. Watch it carefully as it can burn quickly and turn bitter. <strong>Temperature control:</strong> Keep the heat moderate when cooking garlic to prevent burning while still releasing its aromatic oils.</p>
+            </div>
+
+            <div class="serving-suggestion">
+                <h3>Perfect Pairings ☕</h3>
+                <p>Serve over warm pasta, fluffy rice, or with crusty bread to soak up every drop of that garlicky butter sauce. Add a simple green salad and a glass of crisp white wine for a cozy, restaurant-worthy meal at home. This dish also makes a wonderful appetizer for gatherings!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
